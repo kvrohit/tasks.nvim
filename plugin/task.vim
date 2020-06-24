@@ -5,6 +5,7 @@ set cpo&vim
 
 " load tasks lua
 command! ToggleTask lua require'task'.tasks()
+command! UndoTask lua require'task'.undo()
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
