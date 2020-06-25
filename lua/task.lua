@@ -6,9 +6,18 @@ local function tasks()
     elseif string.find(line, "✔") then
         replaced, count = string.gsub(line, "✔", "☐", 1)
         vim.api.nvim_set_current_line(replaced)
-    else
+    elseif string.find(line, "%w") then
         str = string.sub(line, string.find(line, "%w"))
         rep, _ = string.gsub(line, "%w", "☐ " .. str, 1)
+        vim.api.nvim_set_current_line(rep)
+    else
+        pos = string.find(line, "%s")
+        if pos == nil then 
+            pos = 0
+            line = " "
+        end
+        str = string.sub(line, pos)
+        rep, _ = string.gsub(line, "%s", "☐ " .. str, 1)
         vim.api.nvim_set_current_line(rep)
     end
 end
