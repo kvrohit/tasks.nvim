@@ -2,9 +2,10 @@ local function tasks()
     local line = vim.api.nvim_get_current_line()
     if string.find(line, "☐") then
         replaced, count = string.gsub(line, "☐", "✔", 1)
-        vim.api.nvim_set_current_line(replaced)
+        vim.api.nvim_set_current_line(replaced .. os.date(" @done (%d/%m/%Y %X)"))
     elseif string.find(line, "✔") then
         replaced, count = string.gsub(line, "✔", "☐", 1)
+        replaced, count = string.gsub(replaced, "%s@done.*", "", 1)
         vim.api.nvim_set_current_line(replaced)
     elseif string.find(line, "%w") then
         str = string.sub(line, string.find(line, "%w"))
