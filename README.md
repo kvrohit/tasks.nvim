@@ -29,6 +29,8 @@ nnoremap <leader>td :UndoTask<CR>
 
 ## Example
 
+```
 ✔ Implement the tasks plugin for NeoVim @done (03/07/2020 22:33:06)
 ☐ Write usage documentation for the tasks plugin
+```
 
