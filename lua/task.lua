@@ -26,6 +26,7 @@ end
 local function undo_task()
     local line = vim.api.nvim_get_current_line()
     replaced, count = string.gsub(line, "☐ ", "", 1)
+    replaced, count = string.gsub(replaced, "%s@done.*", "", 1)
     replaced, count = string.gsub(replaced, "✔ ", "", 1)
     vim.api.nvim_set_current_line(replaced)
 end
