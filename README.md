@@ -10,7 +10,7 @@ A simple extension for Neovim to organize your to-do lists.
 
 ## How to use
 
-Create a file and save with `todo` extension.
+Create a file with `todo` extension.
 
 To toggle text as a todo item use the `:ToggleTask` command. Running this command on an empty line will convert that line into a todo item.
 
