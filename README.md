@@ -1,13 +1,11 @@
-# NeoVim Tasks
+# Neovim Tasks
 
-A simple extension for NeoVim to organize your to-do tasks.
+A simple extension for Neovim to organize your to-do lists.
 
 ## Installation 
 
-If you use [vim-plug](https://github.com/junegunn/vim-plug), add the following lines to your `init.vim`:
-
 ```vim
-Plug 'kvrohit/nvim-tasks'
+<PackageManager> 'kvrohit/tasks.nvim'
 ```
 
 ## How to use
@@ -20,7 +18,7 @@ Running `:ToggleTask` on a todo item will toggle its state from open to complete
 
 To unmark a todo item run `:UndoTask`.
 
-Setup custom shortcuts/keybindings in your `vimrc` for ease of use. Example:
+Setup custom shortcuts/keybindings in your configuration for ease of use. Example:
 
 ```vim
 nnoremap <leader>tt :ToggleTask<CR>
@@ -30,7 +28,6 @@ nnoremap <leader>td :UndoTask<CR>
 ## Example
 
 ```
-✔ Implement the tasks plugin for NeoVim @done (03/07/2020 22:33:06)
+✔ Implement the tasks plugin for Neovim @done (03/07/2020 22:33:06)
 ☐ Write usage documentation for the tasks plugin
 ```
-
