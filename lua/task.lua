@@ -1,4 +1,6 @@
-local function tasks()
+local M = {}
+
+M.toggle = function()
     local line = vim.api.nvim_get_current_line()
     if string.find(line, "☐") then
         replaced, count = string.gsub(line, "☐", "✔", 1)
@@ -27,7 +29,7 @@ local function tasks()
     end
 end
 
-local function undo_task()
+M.undo = function()
     local line = vim.api.nvim_get_current_line()
     replaced, count = string.gsub(line, "☐ ", "", 1)
     replaced, count = string.gsub(replaced, "%s@done.*", "", 1)
@@ -35,7 +37,7 @@ local function undo_task()
     vim.api.nvim_set_current_line(replaced)
 end
 
-local function cancel_task()
+M.cancel = function()
     local line = vim.api.nvim_get_current_line()
     if string.find(line, "✗") then
         replaced, count = string.gsub(line, "✗ ", "☐ ", 1)
@@ -51,8 +53,4 @@ local function cancel_task()
     end
 end
 
-return {
-    tasks = tasks,
-    undo = undo_task,
-    cancel = cancel_task,
-}
+return M
