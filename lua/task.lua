@@ -31,8 +31,16 @@ local function undo_task()
     vim.api.nvim_set_current_line(replaced)
 end
 
+local function cancel_task()
+    local line = vim.api.nvim_get_current_line()
+    replaced, count = string.gsub(line, "☐ ", "✗ ", 1)
+    replaced, count = string.gsub(line, "✔ ", "✗ ", 1)
+    replaced, count = string.gsub(replaced, "%s@done.*", "", 1)
+    vim.api.nvim_set_current_line(replaced .. os.date(" @cancelled (%d/%m/%Y %X)"))
+end
+
 return {
     tasks = tasks,
-    undo = undo_task
+    undo = undo_task,
+    cancel = cancel_task,
 }
-

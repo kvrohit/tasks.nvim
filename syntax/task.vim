@@ -1,4 +1,6 @@
-syntax match todoItem "^\s*✔.*"
+syntax match completedItem "^\s*✔.*"
+syntax match cancelledItem "^\s*✗.*"
 
-highlight default link todoItem String
+highlight default link completedItem String
+highlight default link cancelledItem Error
 
