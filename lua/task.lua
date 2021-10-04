@@ -1,4 +1,6 @@
-local function tasks()
+local M = {}
+
+M.toggle = function()
     local line = vim.api.nvim_get_current_line()
     if string.find(line, "☐") then
         replaced, count = string.gsub(line, "☐", "✔", 1)
@@ -6,6 +8,10 @@ local function tasks()
     elseif string.find(line, "✔") then
         replaced, count = string.gsub(line, "✔", "☐", 1)
         replaced, count = string.gsub(replaced, "%s@done.*", "", 1)
+        vim.api.nvim_set_current_line(replaced)
+    elseif string.find(line, "✗") then
+        replaced, count = string.gsub(line, "✗", "☐", 1)
+        replaced, count = string.gsub(replaced, "%s@cancelled.*", "", 1)
         vim.api.nvim_set_current_line(replaced)
     elseif string.find(line, "%w") then
         str = string.sub(line, string.find(line, "%w"))
@@ -23,7 +29,7 @@ local function tasks()
     end
 end
 
-local function undo_task()
+M.undo = function()
     local line = vim.api.nvim_get_current_line()
     replaced, count = string.gsub(line, "☐ ", "", 1)
     replaced, count = string.gsub(replaced, "%s@done.*", "", 1)
@@ -31,8 +37,20 @@ local function undo_task()
     vim.api.nvim_set_current_line(replaced)
 end
 
-return {
-    tasks = tasks,
-    undo = undo_task
-}
+M.cancel = function()
+    local line = vim.api.nvim_get_current_line()
+    if string.find(line, "✗") then
+        replaced, count = string.gsub(line, "✗ ", "☐ ", 1)
+        replaced, count = string.gsub(replaced, "%s@cancelled.*", "", 1)
+        vim.api.nvim_set_current_line(replaced)
+    elseif string.find(line, "✔") then
+        replaced, count = string.gsub(line, "✔ ", "✗ ", 1)
+        replaced, count = string.gsub(replaced, "%s@done.*", "", 1)
+        vim.api.nvim_set_current_line(replaced .. os.date(" @cancelled (%d/%m/%Y %X)"))
+    elseif string.find(line, "☐") then
+        replaced, count = string.gsub(line, "☐ ", "✗ ", 1)
+        vim.api.nvim_set_current_line(replaced .. os.date(" @cancelled (%d/%m/%Y %X)"))
+    end
+end
 
+return M
