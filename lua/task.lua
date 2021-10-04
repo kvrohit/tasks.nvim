@@ -7,6 +7,10 @@ local function tasks()
         replaced, count = string.gsub(line, "✔", "☐", 1)
         replaced, count = string.gsub(replaced, "%s@done.*", "", 1)
         vim.api.nvim_set_current_line(replaced)
+    elseif string.find(line, "✗") then
+        replaced, count = string.gsub(line, "✗", "☐", 1)
+        replaced, count = string.gsub(replaced, "%s@cancelled.*", "", 1)
+        vim.api.nvim_set_current_line(replaced)
     elseif string.find(line, "%w") then
         str = string.sub(line, string.find(line, "%w"))
         rep, _ = string.gsub(line, "%w", "☐ " .. str, 1)
