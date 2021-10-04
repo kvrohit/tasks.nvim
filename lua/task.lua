@@ -33,10 +33,18 @@ end
 
 local function cancel_task()
     local line = vim.api.nvim_get_current_line()
-    replaced, count = string.gsub(line, "☐ ", "✗ ", 1)
-    replaced, count = string.gsub(line, "✔ ", "✗ ", 1)
-    replaced, count = string.gsub(replaced, "%s@done.*", "", 1)
-    vim.api.nvim_set_current_line(replaced .. os.date(" @cancelled (%d/%m/%Y %X)"))
+    if string.find(line, "✗") then
+        replaced, count = string.gsub(line, "✗ ", "☐ ", 1)
+        replaced, count = string.gsub(replaced, "%s@cancelled.*", "", 1)
+        vim.api.nvim_set_current_line(replaced)
+    elseif string.find(line, "✔") then
+        replaced, count = string.gsub(line, "✔ ", "✗ ", 1)
+        replaced, count = string.gsub(replaced, "%s@done.*", "", 1)
+        vim.api.nvim_set_current_line(replaced .. os.date(" @cancelled (%d/%m/%Y %X)"))
+    elseif string.find(line, "☐") then
+        replaced, count = string.gsub(line, "☐ ", "✗ ", 1)
+        vim.api.nvim_set_current_line(replaced .. os.date(" @cancelled (%d/%m/%Y %X)"))
+    end
 end
 
 return {
